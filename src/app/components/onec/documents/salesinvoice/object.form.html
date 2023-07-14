@@ -1,0 +1,70 @@
+
+<div class="container">
+  <div class="loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+
+<div class="field-group">
+
+<mat-accordion multi>
+  <!-- Number -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Number</mat-panel-title>
+      <mat-panel-description>{{dataSource.data.Number}}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Number</mat-label>
+      <input matInput [(ngModel)]="dataSource.data.Number">
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <!-- Date -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Date</mat-panel-title>
+      <mat-panel-description>{{dataSource.data.Date | date: 'dd/MM/yyyy'}}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="dataSource.data.Date" >
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+  <!-- Customer -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Customer</mat-panel-title>
+      <mat-panel-description>{{panel_customer_tite}}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <reference-input-material
+      (refPresentationIsChanged)="onCustomerPresentationChanged($event)"
+      labelText="Customer"
+      [definition]="customer">
+    </reference-input-material>
+
+  </mat-expansion-panel>
+
+
+  <!-- Tabular section: Products -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Products</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <tabular-section [definition]="products">
+    </tabular-section>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+</div>
+</div>

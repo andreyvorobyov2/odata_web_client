@@ -1,0 +1,55 @@
+
+<mat-form-field appearance="fill" class="form-field alignment"
+  subscriptSizing = "dynamic">
+  <mat-label>{{labelText}}</mat-label>
+
+  <input matInput type="text" #inputField
+
+    (blur)="onBlur()"
+    [formControl] = "refFormControl"
+    [matAutocomplete]="auto"
+    [value]="ref"
+    (keydown)="resetForSearch($event)">
+
+  <mat-spinner *ngIf="searchInProgress" matSuffix diameter="22" style="display: inline-flex"></mat-spinner>
+
+    <!-- clear button -->
+  <button *ngIf="ref.isFilled()"
+    matSuffix mat-icon-button aria-label="Clear" (click)="clear_ref()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <!-- restore button -->
+  <button *ngIf="ref_buffer.isFilled() && ref.isEmpty()"
+    matSuffix mat-icon-button aria-label="Restore" (click)="restore_ref()">
+    <mat-icon>restore</mat-icon>
+  </button>
+
+  <!-- open object form -->
+  <button matSuffix mat-icon-button [disabled]="ref.isEmpty()" (click)="openObjectForm()">
+    <mat-icon>open_in_new</mat-icon>
+  </button>
+
+  <!-- open list form for select -->
+  <button matSuffix mat-icon-button (click)="openChoiceForm()">
+    <mat-icon>list</mat-icon>
+  </button>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="moveCursorPositionToBegin(inputField)">
+
+    <mat-option *ngFor="let option of options " [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+
+
+  <mat-hint align="start" *ngIf="ref_buffer.isFilled() && ref.isEmpty()">
+    {{ref_buffer.presentation}}
+  </mat-hint>
+  <!-- <mat-hint align="end">{{ref.refValue}}</mat-hint> -->
+
+  <mat-error *ngIf="refFormControl.hasError('incompleteInputError')">
+    Incomplete reference input
+  </mat-error>
+
+</mat-form-field>

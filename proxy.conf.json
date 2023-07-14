@@ -1,0 +1,10 @@
+{
+  "/api/*":
+  {
+    "target": "http://192.168.0.11/odata/odata/standard.odata/",
+    "pathRewrite": {"^/api": ""},
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false
+  }
+}

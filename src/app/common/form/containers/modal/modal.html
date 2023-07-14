@@ -1,0 +1,7 @@
+<div class="modal">
+  <div class="modal_content">
+      <command-panel [linkedFormInfo]="formInfo"></command-panel>
+      <mat-progress-bar mode="indeterminate" *ngIf="formInfo?.instance?.loading"></mat-progress-bar>
+      <ng-template DynamicContent></ng-template>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+.form-header{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 60px;
+}
+
+.form-header-title{
+  text-align: center;
+  width: 100%;
+}
+
+.form-right{
+  position: absolute;
+  right: 0;
+}
+
+.header-buttons-group{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+/* command bar */
+
+.commandbar {
+  display: table;
+}
+
+.button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}

@@ -1,0 +1,117 @@
+
+
+<div class="container">
+  <div class="loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+
+<div class="field-group">
+
+<mat-accordion multi>
+
+  <div *ngFor="let attr of wrapper.attributes">
+
+    <!-- control: Label -->
+    <div *ngIf="wrapper.isLabel(attr.formControl)">
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{attr.formControl?.control?.title}}</mat-panel-title>
+          <mat-panel-description>{{dataSource.data[attr.dataPath]}}</mat-panel-description>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+    </div>
+
+    <!-- control: SingleLineInput -->
+    <div *ngIf="wrapper.isSingleLineInput(attr.formControl)">
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{attr.formControl?.control?.title}}</mat-panel-title>
+          <mat-panel-description>{{dataSource.data[attr.dataPath]}}</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{attr.formControl?.control?.title}}</mat-label>
+          <input matInput [(ngModel)]="dataSource.data[attr.dataPath]"
+          maxlength="{{wrapper.getInputMaxLength(attr.formControl)}}"
+          type="{{wrapper.getInputType(attr.formControl)}}">
+        </mat-form-field>
+      </mat-expansion-panel>
+
+    </div>
+
+    <!-- control: MultiLineInput -->
+    <div *ngIf="wrapper.isMultiLineInput(attr.formControl)">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{attr.formControl?.control?.title}}</mat-panel-title>
+          <mat-panel-description> {{dataSource.data[attr.dataPath] | truncate:25}}</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{attr.formControl?.control?.title}}</mat-label>
+          <textarea matInput rows="5" [(ngModel)]="dataSource.data[attr.dataPath]" ></textarea>
+        </mat-form-field>
+      </mat-expansion-panel>
+    </div>
+
+    <!-- control: ReferenceInput -->
+    <div *ngIf="wrapper.isReferenceInput(attr.formControl)">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{attr.formControl?.control?.title}}</mat-panel-title>
+      <mat-panel-description>{{wrapper.getReferencePresentation(attr)}}</mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <reference-input-material
+        (refPresentationIsChanged)="wrapper.onRefetencePresentationChanged(attr, $event)"
+        labelText={{attr.formControl?.control?.title}}
+        [definition]="wrapper.getReferenceDefenition(attr)">
+      </reference-input-material>
+
+    </mat-expansion-panel>
+    </div>
+
+
+  </div>
+
+
+  <!-- Code -->
+  <!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Code</mat-panel-title>
+      <mat-panel-description>{{dataSource.data.Code}}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Code</mat-label>
+      <input matInput [(ngModel)]="dataSource.data.Code">
+    </mat-form-field>
+  </mat-expansion-panel> -->
+
+  <!-- Description -->
+  <!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Description</mat-panel-title>
+      <mat-panel-description>{{dataSource.data.Description}}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput [(ngModel)]="dataSource.data.Description">
+    </mat-form-field>
+
+  </mat-expansion-panel> -->
+
+
+</mat-accordion>
+</div>
+</div>
+
+<!-- <pre>
+  <div class="scrolable">
+      {{removeCircularReferences(dataSource)|json}}
+  </div>
+</pre> -->

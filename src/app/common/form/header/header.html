@@ -1,0 +1,91 @@
+<div class="form-header">
+
+  <!-- form left -->
+  <section class="commandbar">
+
+    <div class="button-row">
+
+      <!-- Buttons for catalog object form -->
+      <div *ngIf="cpv_CATALOG_OBJECT_FORM()">
+
+        <button mat-raised-button color="primary" (click)="save(); closeForm()" [disabled]="disabled && !isNew()"><mat-icon>save</mat-icon>Save and close</button>
+        <button mat-stroked-button  (click)="save()" [disabled]="disabled && !isNew()">Save</button>
+
+      </div>
+
+      <!-- Buttons for document edit object form -->
+      <div *ngIf="cpv_DOCUMENT_OBJECT_FORM()">
+
+        <button mat-raised-button color="primary" (click)="post(); closeForm()" [disabled]="disabled && !isNew()"><mat-icon>check_circle</mat-icon>Post and close</button>
+        <button mat-stroked-button  (click)="save()" [disabled]="disabled && !isNew()"><mat-icon>save</mat-icon>Save</button>
+        <button mat-stroked-button  (click)="post()" [disabled]="disabled && !isNew()">Post</button>
+
+      </div>
+
+
+      <!-- Buttons for list form Catalog \ Document -->
+      <div *ngIf="cpv_LIST_FORM()">
+        <button mat-raised-button color="primary" (click)="createNewObject()" [disabled]="disabled"> <mat-icon>add_circle</mat-icon>Create new</button>
+      </div>
+
+      <!-- Button for list form choice mode -->
+      <div *ngIf="cpv_LIST_FORM_CHOICE_MODE()">
+        <button mat-raised-button color="primary" (click)="select(); closeForm()" [disabled]="disabled || select_disabled">Select</button>
+
+        <button mat-stroked-button (click)="createNewObject()" [disabled]="disabled">
+          <mat-icon>add_circle_outline</mat-icon> Create new
+        </button>
+      </div>
+
+      <!-- Button for tabular section row -->
+      <div *ngIf="cpv_TABULAR_SECTION_ROW()">
+        <button mat-raised-button color="primary" (click)="tabularSectionRowOk(); closeForm()">Ok</button>
+        <button mat-stroked-button (click)="closeForm()">Cancel</button>
+      </div>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- form center -->
+  <!-- <div class="form-header-title">
+    <span>{{linkedFormInfo?.instance?.title}} - {{linkedFormInfo?.id}}</span>
+  </div> -->
+
+  <!-- form right -->
+  <div class="form-right">
+
+    <!--form menu-->
+    <mat-menu #menu="matMenu">
+
+      <button mat-menu-item (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        <span>Refresh</span>
+      </button>
+
+      <button mat-menu-item (click)="markForDeletion()" [disabled]="disabled"
+        *ngIf="(cpv_CATALOG_OBJECT_FORM() || cpv_DOCUMENT_OBJECT_FORM()) && ! isNew()">
+        <mat-icon>delete</mat-icon>
+        <span>Mark for deletion</span>
+      </button>
+
+    </mat-menu>
+
+
+    <div class="header-buttons-group">
+      <!-- menu button -->
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <!--close button-->
+      <button mat-icon-button  (click)="closeForm()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</div>
+<mat-divider></mat-divider>

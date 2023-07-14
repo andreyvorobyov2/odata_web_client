@@ -1,0 +1,113 @@
+
+
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  <button mat-icon-button (click)="drawer.toggle()" >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>ODATA WEB CLIENT</span>
+  <span class="toolbar-spacer"></span>
+
+  <!-- test button -->
+  <!-- <button mat-stroked-button (click)="saveToLocalStorage()">Save to local storage</button> -->
+  <!-- <button mat-stroked-button (click)="restoreFromLocalStorage()">Restore form local storage</button> -->
+
+
+  <button mat-icon-button [matMenuTriggerFor]="openedFormMenu" *ngIf="forms.length > 0">
+    <mat-icon>ballot</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<!-- open form menu-->
+<mat-menu #openedFormMenu="matMenu">
+
+  <button mat-menu-item *ngFor="let form of forms;" (click)="switchForm(form)" >
+    <mat-icon *ngIf="form.id === activeFormID">arrow_right</mat-icon>
+    <span>{{form.instance?.title | truncate:20}}</span>
+  </button>
+
+</mat-menu>
+
+
+
+<mat-drawer-container [hasBackdrop]="true" class="sidenav-container" >
+  <mat-drawer #drawer mode="over" opened = "false">
+
+    <mat-accordion  multi>
+      <mat-expansion-panel class="menu-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>folder_open</mat-icon>
+            Catalogs
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <a mat-list-item  (click)="openList('Goods_Md')">Goods</a>
+          <a mat-list-item  (click)="openList('Categories_Md')">Categories</a>
+          <a mat-list-item  (click)="openList('Customers_Md')">Customers</a>
+        </mat-nav-list>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="menu-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>file_copy</mat-icon>
+            Documents
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <a mat-list-item  (click)="openList('SalesInvoice_Md')">Sales invoice</a>
+        </mat-nav-list>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="menu-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>bug_report</mat-icon>
+            Other
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <!-- <a mat-list-item  (click)="openFormListUsers(); drawer.toggle()">Users</a> -->
+          <!-- <a mat-list-item  (click)="openFormListRandomUsers(); drawer.toggle()">Random users</a> -->
+          <!-- <a mat-list-item  (click)="openFormListProducts(); drawer.toggle()">Random users</a> -->
+        </mat-nav-list>
+
+      </mat-expansion-panel>
+
+
+    </mat-accordion>
+
+</mat-drawer>
+
+<!-- Main content -->
+
+  <mat-drawer-content>
+    <!-- Tabs -->
+    <mat-tab-group [selectedIndex] = "tabSelectedIndex" (selectedIndexChange) = "onSelectedIndexChange($event)">
+      <mat-tab *ngFor ="let f of forms;" [label]="getTabTitle(f)"></mat-tab>
+    </mat-tab-group>
+
+    <!-- Dynamic content -->
+
+
+    <regular-form-manager-material></regular-form-manager-material>
+    <modal-form-manager-material></modal-form-manager-material>
+
+    <!-- Test form -->
+
+      <!-- <my-test-modal-material-form></my-test-modal-material-form> -->
+      <!-- <my-test-material-component></my-test-material-component> -->
+
+
+  </mat-drawer-content>
+
+</mat-drawer-container>
+
+<!-- <footer class="footer"></footer> -->
+

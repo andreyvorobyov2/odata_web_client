@@ -1,0 +1,16 @@
+
+.modal{
+  position: absolute;
+  height: 95%;
+  width: 100%;
+  z-index: 10;
+  background-color: hsla(221, 81%, 71%, 0.281);
+}
+
+.modal_content{
+  background-color: white;
+  position: relative;
+  /* background-color: brown; */
+  border-radius: 8px;
+}
+

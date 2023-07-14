@@ -1,0 +1,61 @@
+
+<!-- Command panel -->
+<section class="commandbar">
+  <div class="commandbar-button-row">
+      <button mat-raised-button  (click)="add_row()"> <mat-icon>add_circle_outline</mat-icon>Add</button>
+      <button mat-stroked-button (click)="clear_all_rows()">Clear</button>
+  </div>
+</section>
+
+<!-- Table -->
+<table mat-table [dataSource]="tableDataSource" multiTemplateDataRows>
+
+  <!-- expand arrow -->
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+    <td mat-cell *matCellDef="let row">
+      <div>
+        <mat-icon *ngIf="expanded_row !== row">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="expanded_row === row">keyboard_arrow_up</mat-icon>
+      </div>
+    </td>
+  </ng-container>
+
+      <!-- all other columns -->
+      <ng-container matColumnDef="{{column.dataPath}}" *ngFor="let column of getColumnsToDisplay()">
+        <th mat-header-cell *matHeaderCellDef> {{column.title}} </th>
+        <td mat-cell *matCellDef="let row"> {{get_fetched_data(row, column.dataPath)}} </td>
+      </ng-container>
+
+      <!-- context menu buttons -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let row" [attr.colspan]="getColumnsToDisplayWithExpand().length">
+          <div class="button-row-container"
+          [class.coll-row] = "expanded_row != row"
+          [class.exp-row] = "expanded_row === row">
+
+            <div class="button-row">
+              <button mat-icon-button (click)="edit_row(row)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button (click)="copy_row(row)"><mat-icon>content_copy</mat-icon></button>
+              <button mat-icon-button (click)="delete_row(row)"><mat-icon>delete_outline</mat-icon></button>
+              <button mat-icon-button (click)="up_row(row)" [disabled]="row.LineNumber === '1'">
+                <mat-icon>arrow_upward</mat-icon></button>
+              <button mat-icon-button (click)="down_row(row)" [disabled]="row.LineNumber === tableDataSource.data.length.toString()">
+                <mat-icon>arrow_downward</mat-icon></button>
+            </div>
+
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: getColumnsToDisplayWithExpand();"
+        class="table-row"
+        (click)="expanded_row = expanded_row === row ? null : row">
+      </tr>
+
+      <tr mat-header-row *matHeaderRowDef="getColumnsToDisplayWithExpand()"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+
+    <!-- /Table -->

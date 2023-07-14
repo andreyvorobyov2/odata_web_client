@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.table-row td {
+  border-bottom-width: 0;
+}
+
+.button-row-container {
+  overflow: hidden;
+  display: flex;
+}
+
+.mat-column-expand {
+  width: 10px;
+}
+
+.mat-column-line_number {
+  width: 20px;
+}
+
+.exp-row{
+  height: '*'
+}
+
+.coll-row{
+  height: 0px;
+  min-height: 0;
+}
+
+/* Buttons */
+
+.button-row {
+  display: table-cell;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* command bar */
+
+.commandbar {
+  display: table;
+}
+
+.commandbar-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.commandbar-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
